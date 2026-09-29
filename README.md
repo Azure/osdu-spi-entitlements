@@ -70,7 +70,7 @@ SPI Stack sets the service's environment from two places: the shared `osdu-confi
 | `REDIS_TTL_SECONDS` | `1` | Lifetime of cached group lookups |
 | `REDIS_DATABASE` | `2` | Redis database index; overrides the `8` in `application.properties` |
 
-The service authenticates to Azure with workload identity, which injects `AZURE_CLIENT_ID` and a federated token; there are no client secrets. Gremlin connections use Entra tokens from that identity. Two endpoints come from central Key Vault rather than the environment: the graph from the secret `graph-db-endpoint` (database `osdu-graph`, collection `Entitlements`), and the Redis host from `redis-hostname`, over TLS on port `6380`.
+The service authenticates to Azure with workload identity, which injects `AZURE_CLIENT_ID` and a federated token; there are no client secrets. Gremlin connections use Entra tokens from that identity. Two endpoints come from central Key Vault: the graph from the secret `graph-db-endpoint` (database `osdu-graph`, collection `Entitlements`), and the Redis host from `redis-hostname`, over TLS on port `6380`. `REDIS_HOSTNAME` would override the Redis host, but SPI Stack leaves it unset.
 
 ## Test
 
@@ -78,7 +78,7 @@ The service authenticates to Azure with workload identity, which injects `AZURE_
 |---|---|---|---|
 | Unit | `entitlements-v2-core`, `provider/entitlements-v2-azure` | Pull requests (Java Build) | `mvn ... install` from [Build](#build) |
 | Acceptance | [`entitlements-v2-acceptance-test`](entitlements-v2-acceptance-test/README.md) | Pull requests, against SPI Stack (Deploy and Test) | `spi test entitlements` |
-| Integration | `testing/entitlements-v2-test-azure` | No | See below |
+| Integration | `testing/entitlements-v2-test-azure` | No | Not supported on SPI Stack |
 
 CI runs these on pull requests from this repository that change code. Documentation-only changes skip the build, and pull requests from forks build without deploying.
 
