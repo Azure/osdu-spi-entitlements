@@ -1,5 +1,8 @@
 # entitlements-v2-azure
 
+> [!NOTE]
+> This is the Azure provider for the Entitlements service, maintained by Microsoft in [`Azure/osdu-spi-entitlements`](https://github.com/Azure/osdu-spi-entitlements). The shared service code comes from the OSDU community upstream. See [CONTRIBUTING.md](../../CONTRIBUTING.md) for which paths this repository owns.
+
 entitlements-v2-azure is a [Spring Boot](https://spring.io/projects/spring-boot) service which hosts CRUD APIs that enable management of user entitlements.
 Data kept in Azure cosmos graph database.
 
@@ -107,7 +110,7 @@ This project uses [Lombok](https://projectlombok.org/) for code generation. You 
 | `root_data_group_quota` | ex `5000` | Maximum number of parents a group users.data.root can have | no | -- |
 | `redis_ttl_seconds` | ex `1` | The time to live in seconds for entitlements redis cache | no | -- |
 
-In order to run the service locally, you will need to have defined environment variables that you can find [here](https://community.opengroup.org/osdu/platform/deployment-and-operations/infra-azure-provisioning/-/blob/master/tools/variables/entitlements.sh#L150).
+In order to run the service locally, define the variables in the table above.
 
 **Note** The following command can be useful to pull secrets from keyvault:
 ```bash
@@ -140,7 +143,7 @@ $ mvn spring-boot:run -pl provider/entitlements-v2-azure
 1. Run Entitlements V2 service from Azure provider (assumed that all the required environment variables specified for using Cloud Infrastructure).
 
 2. Define environment variables for integration tests (e.g. maven options):
-[See this link](https://community.opengroup.org/osdu/platform/deployment-and-operations/infra-azure-provisioning/-/blob/master/tools/variables/entitlements.sh#L176)
+the variable names are read by `testing/entitlements-v2-test-core` and `testing/entitlements-v2-test-azure`.
 
 3. Run integration tests:
 
@@ -176,7 +179,7 @@ $ mvn test -f testing/entitlements-v2-test-azure
 5. Run Entitlements V2 service from Azure provider.
 
 6. Define environment variables for integration tests (e.g. maven options):
-[See this link](https://community.opengroup.org/osdu/platform/deployment-and-operations/infra-azure-provisioning/-/blob/master/tools/variables/entitlements.sh#L176)
+the variable names are read by `testing/entitlements-v2-test-core` and `testing/entitlements-v2-test-azure`.
 
 New variables added:
 
@@ -206,11 +209,7 @@ Jet Brains - the authors of Intellij IDEA, have written an [excellent guide](htt
 
 ## Deploying the Service
 
-Service deployments into Azure standardized to make the process the same for all services if using ADO and are
-closely related to the infrastructure deployed. The steps to deploy into Azure can be [found here](https://github.com/azure/osdu-infrastructure)
-
-The default ADO pipeline is /devops/pipeline.yml
-
+Environments and service deployments are provisioned by [OSDU SPI Stack](https://github.com/Azure/osdu-spi-stack). This repository builds the service image and runs the acceptance tests against a deployed environment; see [`entitlements-v2-acceptance-test`](../../entitlements-v2-acceptance-test/README.md).
 
 ## License
 Copyright © Microsoft Corporation
