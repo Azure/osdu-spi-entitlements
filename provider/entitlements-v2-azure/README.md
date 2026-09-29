@@ -1,5 +1,9 @@
 # Entitlements Service: Azure Provider
 
+[![Release](https://img.shields.io/github/v/release/Azure/osdu-spi-entitlements)](https://github.com/Azure/osdu-spi-entitlements/releases)
+[![Validate](https://github.com/Azure/osdu-spi-entitlements/actions/workflows/validate.yml/badge.svg?branch=main)](https://github.com/Azure/osdu-spi-entitlements/actions/workflows/validate.yml)
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](../../LICENSE)
+
 > [!NOTE]
 > Shared service code comes from the [OSDU community upstream](https://community.opengroup.org/osdu/platform/security-and-compliance/entitlements).
 
