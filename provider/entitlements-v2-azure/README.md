@@ -82,7 +82,7 @@ The service authenticates to Azure with workload identity, which injects `AZURE_
 
 CI runs these on pull requests from this repository that change code. Documentation-only changes skip the build, and pull requests from forks build without deploying.
 
-**Acceptance** proves a change on real infrastructure before it merges. It calls the deployed service through the gateway as a privileged test identity and as a second identity without access, and the bindings in `.spi/service.yaml` supply its host, partition, domain, and tokens. Against an environment you are connected to:
+**Acceptance** proves a change on real infrastructure before it merges. It calls the deployed service through the gateway as a privileged test identity and as an ordinary member identity for the forbidden-access cases, and the bindings in `.spi/service.yaml` supply its host, partition, domain, and tokens. Against an environment you are connected to:
 
 ```bash
 spi test entitlements                   # the image and suite the environment is running
