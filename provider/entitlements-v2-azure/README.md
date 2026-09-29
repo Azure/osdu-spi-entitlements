@@ -62,6 +62,8 @@ SPI Stack sets the service's environment from two places: the shared `osdu-confi
 | Variable | Value on SPI Stack | Purpose |
 |---|---|---|
 | `SERVER_SERVLET_CONTEXTPATH` | `/api/entitlements/v2/` | API base path |
+| `AZURE_ISTIOAUTH_ENABLED` | `true` | Trust the mesh's token validation |
+| `AZURE_PAAS_WORKLOADIDENTITY_ISENABLED` | `true` | Authenticate to Azure with workload identity |
 | `PARTITION_SERVICE_ENDPOINT` | `http://partition/api/partition/v1` | Per-partition resource lookup |
 | `SERVICE_DOMAIN_NAME` | `dataservices.energy` | Domain in group emails, as in `users@<partition>.dataservices.energy` |
 | `ROOT_DATA_GROUP_QUOTA` | `5000` | Most parents the `users.data.root` group may have |
@@ -74,11 +76,13 @@ The service authenticates to Azure with workload identity, which injects `AZURE_
 
 | Suite | Where | Runs in CI | Run it yourself |
 |---|---|---|---|
-| Unit | `entitlements-v2-core`, `provider/entitlements-v2-azure` | Every pull request (Java Build) | `mvn ... install` from [Build](#build) |
-| Acceptance | [`entitlements-v2-acceptance-test`](../../entitlements-v2-acceptance-test/README.md) | Every pull request, against SPI Stack (Deploy and Test) | `spi test entitlements` |
+| Unit | `entitlements-v2-core`, `provider/entitlements-v2-azure` | Pull requests (Java Build) | `mvn ... install` from [Build](#build) |
+| Acceptance | [`entitlements-v2-acceptance-test`](../../entitlements-v2-acceptance-test/README.md) | Pull requests, against SPI Stack (Deploy and Test) | `spi test entitlements` |
 | Integration | `testing/entitlements-v2-test-azure` | No | See below |
 
-**Acceptance** is the suite that gates a merge. It calls the deployed service through the gateway as a privileged test identity and as a second identity without access, and the bindings in `.spi/service.yaml` supply its host, partition, domain, and tokens. Against an environment you are connected to:
+CI runs these on pull requests from this repository that change code. Documentation-only changes skip the build, and pull requests from forks build without deploying.
+
+**Acceptance** proves a change on real infrastructure before it merges. It calls the deployed service through the gateway as a privileged test identity and as a second identity without access, and the bindings in `.spi/service.yaml` supply its host, partition, domain, and tokens. Against an environment you are connected to:
 
 ```bash
 spi test entitlements                   # the image and suite the environment is running
@@ -96,7 +100,7 @@ curl -H "Authorization: Bearer $(spi token)" -H "data-partition-id: <partition>"
 
 ## Deploy
 
-CI publishes the service image to GHCR. On a pull request, the Deploy and Test lane borrows an SPI Stack environment, runs the new image there, proves it with the acceptance suite, and restores the environment's own image, so a merge to `main` has already passed on real infrastructure. This repository does not own infrastructure; SPI Stack does.
+For a pull request from this repository that changes code, CI publishes the service image to GHCR and the Deploy and Test lane borrows an SPI Stack environment, runs the new image there, proves it with the acceptance suite, and restores the environment's own image, so code merged to `main` has already passed on real infrastructure. This repository does not own infrastructure; SPI Stack does.
 
 To try a build by hand on an environment you are connected to, pin it by digest and release the pin when done:
 
