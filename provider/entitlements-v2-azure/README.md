@@ -1,227 +1,121 @@
-# entitlements-v2-azure
+# Entitlements Service: Azure Provider
 
 > [!NOTE]
-> This is the Azure provider for the Entitlements service, maintained by Microsoft in [`Azure/osdu-spi-entitlements`](https://github.com/Azure/osdu-spi-entitlements). The shared service code comes from the OSDU community upstream. See [CONTRIBUTING.md](../../CONTRIBUTING.md) for which paths this repository owns.
+> Shared service code comes from the [OSDU community upstream](https://community.opengroup.org/osdu/platform/security-and-compliance/entitlements).
 
-entitlements-v2-azure is a [Spring Boot](https://spring.io/projects/spring-boot) service which hosts CRUD APIs that enable management of user entitlements.
-Data kept in Azure cosmos graph database.
+Entitlements manages the groups that govern access in OSDU: who belongs to which group, and which groups a caller holds when another service checks authorization.
 
+## At a glance
 
-### Graph structure
+| | |
+|---|---|
+| API base path | `/api/entitlements/v2/` |
+| Swagger UI | `/api/entitlements/v2/swagger` |
+| Health | `:8081/actuator/health` |
+| Depends on | Partition |
+| Azure resources | Cosmos DB Gremlin graph (group membership), Redis |
+| Deployed by | [OSDU SPI Stack](https://github.com/Azure/osdu-spi-stack) (`software/stacks/osdu/services/entitlements.yaml`) |
 
-`id` - auto-generated property <br/>
-`appId` - a multi value property <br/>
-`dataPartitionId` - a cosmos db partition key. It is a required property in all vertices in a graph.
+## Repository layout
 
-Group vertex:
+[CONTRIBUTING.md](../../CONTRIBUTING.md) explains where each kind of change belongs.
 
-    {
-        "id": "***"
-        "nodeId": "users@opendes.domain.com",
-        "name": "users",
-        "description": "",
-        "dataPartitionId": "opendes",
-        "appId": "",
-        "label": "GROUP"
-    }
+| Path | Owner | Contents |
+|---|---|---|
+| `entitlements-v2-core/` | OSDU upstream | Shared service code |
+| `provider/entitlements-v2-azure/` | This repository | Azure provider (this module) |
+| `gremlin-shaded-fix/` | OSDU upstream | Shaded Gremlin driver the Azure provider builds against |
+| `entitlements-v2-acceptance-test/` | OSDU upstream | End-to-end suite run against a deployed environment |
+| `testing/entitlements-v2-test-azure/` | This repository | Legacy Azure integration tests |
+| `.spi/service.yaml` | This repository | How CI deploys and tests the service on SPI Stack |
 
-User vertex:
+## Build
 
-    {
-        "id": "***",
-        "nodeId": "user@test.com",
-        "dataPartitionId": "test",
-        "label": "USER"
-    }
-Parent edges point from group to group (in case a group is a member of another group)
-or from a user to group (in case a user is a member of a group). <br/>
-Child edges point from group to group (in case a group is a member of another group)
-or from a group to user (in case a user is a member of a group). <br/>
-`role` - an edge property. Can be "OWNER" or "MEMBER". User can be "OWNER" or "MEMBER" of another group.
-Group can be only a "MEMBER" of another group.
-
-Child edge:
-
-    {
-        "id": "***",
-        "label": "child",
-        "type": "edge",
-        "inVLabel": "USER",
-        "outVLabel": "GROUP",
-        "inV": "***",
-        "outV": "***",
-        "properties": {
-            "role": "OWNER"
-        }
-    }
-
-Parent edge:
-
-    {
-        "id": "***",
-        "label": "parent",
-        "type": "edge",
-        "inVLabel": "GROUP",
-        "outVLabel": "USER",
-        "inV": "***",
-        "outV": "***"
-    }
-
-
-### Requirements
-
-In order to run this service locally, you will need the following:
-
-- [Maven 3.8.0+](https://maven.apache.org/download.cgi)
-- [Java 17](https://adoptopenjdk.net/)
-- Azure infrastructure for the service, provisioned by [OSDU SPI Stack](https://github.com/Azure/osdu-spi-stack)
-- While not a strict dependency, example commands in this document use [bash](https://www.gnu.org/software/bash/)
-
-
-### General Tips
-
-**Environment Variable Management**
-The following tools make environment variable configuration simpler
- - [direnv](https://direnv.net/) - for a shell/terminal environment
- - [EnvFile](https://plugins.jetbrains.com/plugin/7861-envfile) - for [Intellij IDEA](https://www.jetbrains.com/idea/)
-
-**Lombok**
-This project uses [Lombok](https://projectlombok.org/) for code generation. You may need to configure your IDE to take advantage of this tool.
- - [Intellij configuration](https://projectlombok.org/setup/intellij)
- - [VSCode configuration](https://projectlombok.org/setup/vscode)
-
-
-### Environment Variables
-
-| name | value | description | sensitive? | source |
-| ---  | ---   | ---         | ---        | ---    |
-| `LOG_PREFIX` | `entitlements` | Logging prefix | no | - |
-| `LOGGING_LEVEL` | `INFO` | Logging level | no | - |
-| `partition_service_endpoint` |  ex `https://foo-partition.azurewebsites.net` | Partition Service API endpoint | no | output of infrastructure deployment |
-| `aad_client_id` | `********` | AAD client application ID | yes | output of infrastructure deployment |
-| `KEYVAULT_URI` | ex `https://foo-keyvault.vault.azure.net/` | URI of KeyVault that holds application secrets | no | output of infrastructure deployment |
-| `appinsights_key` | `********` | API Key for App Insights | yes | output of infrastructure deployment |
-| `AZURE_TENANT_ID` | `********` | AD tenant to authenticate users from | yes | keyvault secret: `$KEYVAULT_URI/secrets/app-dev-sp-tenant-id` |
-| `AZURE_CLIENT_ID` | `********` | Identity to run the service locally. This enables access to Azure resources. You only need this if running locally | yes | keyvault secret: `$KEYVAULT_URI/secrets/app-dev-sp-username` |
-| `AZURE_CLIENT_SECRET` | `********` | Secret for `$AZURE_CLIENT_ID` | yes | keyvault secret: `$KEYVAULT_URI/secrets/app-dev-sp-password` |
-| `azure_istioauth_enabled` | `true` | Flag to Disable AAD auth | no | -- |
-| `server_port` | ex `8080` | Port of the server | no | -- |
-| `service_domain_name` | ex `contoso.com` | domain name of the service | yes | -- |
-| `root_data_group_quota` | ex `5000` | Maximum number of parents a group users.data.root can have | no | -- |
-| `redis_ttl_seconds` | ex `1` | The time to live in seconds for entitlements redis cache | no | -- |
-
-In order to run the service locally, define the variables in the table above.
-
-**Note** The following command can be useful to pull secrets from keyvault:
-```bash
-az keyvault secret show --vault-name $KEY_VAULT_NAME --name $KEY_VAULT_SECRET_NAME --query value -otsv
-```
-
-### Build and run the application
-
-After configuring your environment as specified above, you can follow these steps to build and run the application. These steps should be invoked from the *repository root.*
+Requires Java 17 and Maven 3.8+. OSDU dependencies resolve from the public community registry through the settings file in `.mvn`:
 
 ```bash
-# build + test + install core service code
-$ mvn clean install
-
-# run service
-#
-# Note: this assumes that the environment variables for running the service as outlined
-#       above are already exported in your environment.
-$ java -jar $(find provider/entitlements-v2-azure/target/ -name '*-spring-boot.jar')
-
-# Alternately you can run using the Maven Task
-$ mvn spring-boot:run -pl provider/entitlements-v2-azure
+mvn --settings .mvn/community-maven.settings.xml -P core,azure clean install
 ```
 
+The runnable jar lands at `provider/entitlements-v2-azure/target/entitlements-v2-azure-*-spring-boot.jar`.
 
-### Test the application
+## Configuration
 
-#### Using Cloud Infrastructure
+SPI Stack sets the service's environment from two places: the shared `osdu-config` ConfigMap and the service's own entry in [`services/entitlements.yaml`](https://github.com/Azure/osdu-spi-stack/blob/main/software/stacks/osdu/services/entitlements.yaml). Those files are the contract; the tables below list what Entitlements actually reads from them.
 
-1. Run Entitlements V2 service from Azure provider (assumed that all the required environment variables specified for using Cloud Infrastructure).
+**Shared, from `osdu-config`:**
 
-2. Define environment variables for integration tests (e.g. maven options):
-the variable names are read by `testing/entitlements-v2-test-core` and `testing/entitlements-v2-test-azure`.
+| Variable | Purpose |
+|---|---|
+| `AZURE_TENANT_ID` | Entra tenant |
+| `AAD_CLIENT_ID` | Application ID that caller tokens are issued for |
+| `KEYVAULT_URI` | Central Key Vault |
+| `SERVER_PORT` | HTTP port (`8080`) |
+| `APPINSIGHTS_KEY` | Telemetry |
 
-3. Run integration tests:
+**Specific to Entitlements**, from `services/entitlements.yaml`:
+
+| Variable | Value on SPI Stack | Purpose |
+|---|---|---|
+| `SERVER_SERVLET_CONTEXTPATH` | `/api/entitlements/v2/` | API base path |
+| `PARTITION_SERVICE_ENDPOINT` | `http://partition/api/partition/v1` | Per-partition resource lookup |
+| `SERVICE_DOMAIN_NAME` | `dataservices.energy` | Domain in group emails, as in `users@<partition>.dataservices.energy` |
+| `ROOT_DATA_GROUP_QUOTA` | `5000` | Most parents the `users.data.root` group may have |
+| `REDIS_TTL_SECONDS` | `1` | Lifetime of cached group lookups |
+| `REDIS_DATABASE` | `2` | Redis database index; overrides the `8` in `application.properties` |
+
+The service authenticates to Azure with workload identity, which injects `AZURE_CLIENT_ID` and a federated token; there are no client secrets. Gremlin connections use Entra tokens from that identity. Two endpoints come from central Key Vault rather than the environment: the graph from the secret `graph-db-endpoint` (database `osdu-graph`, collection `Entitlements`), and the Redis host from `redis-hostname`, over TLS on port `6380`.
+
+## Test
+
+| Suite | Where | Runs in CI | Run it yourself |
+|---|---|---|---|
+| Unit | `entitlements-v2-core`, `provider/entitlements-v2-azure` | Every pull request (Java Build) | `mvn ... install` from [Build](#build) |
+| Acceptance | [`entitlements-v2-acceptance-test`](../../entitlements-v2-acceptance-test/README.md) | Every pull request, against SPI Stack (Deploy and Test) | `spi test entitlements` |
+| Integration | `testing/entitlements-v2-test-azure` | No | See below |
+
+**Acceptance** is the suite that gates a merge. It calls the deployed service through the gateway as a privileged test identity and as a second identity without access, and the bindings in `.spi/service.yaml` supply its host, partition, domain, and tokens. Against an environment you are connected to:
 
 ```bash
-# build + install integration test core
-$ mvn compile -f testing/entitlements-v2-test-core
-
-# build + run Azure integration tests.
-$ mvn test -f testing/entitlements-v2-test-azure
+spi test entitlements                   # the image and suite the environment is running
+spi test entitlements --source .        # this checkout's suite and descriptor
 ```
 
-#### Using CosmosDB Emulator
+**Integration** is the older Azure suite carried from upstream. It sits outside the root Maven build and expects a client secret for a test service principal plus the object IDs of specific Entra users and groups, none of which SPI Stack issues, so it does not run against SPI Stack today. Acceptance covers the same API surface.
 
-1. Set up CosmosDB Emulator
-    - Download [Azure Cosmos emulator](https://docs.microsoft.com/en-us/azure/cosmos-db/local-emulator?tabs=cli%2Cssl-netstd21#download-the-emulator) and save the program to your desktop
-    - Navigate to the directory and start the emulator from command prompt. This should pop up the Emulator in localhost:8081
-       ```
-       Microsoft.Azure.Cosmos.Emulator.exe /EnableGremlinEndpoint
-       ```
-    - Go to Explorer tab and create a database `osdu-graph` and a collection `Entitlements`. For the partition key, use `/dataPartitionId`
-
-2. Using this tool [Entitlements data uploader](https://community.opengroup.org/osdu/platform/deployment-and-operations/infra-azure-provisioning/-/tree/master/tools/test_data/entitlements_data_uploader), populate CosmosDB Emulator by required data for integration tests.
-
-3. Temporarily hardcode in `provider/entitlements-v2-azure/src/main/resources/application.properties` the following properties:
-    - `app.gremlin.port`=`8901`
-    - `app.gremlin.sslEnabled`=`false`
-
-4. Temporarily hardcode in `provider/entitlements-v2-azure/src/main/java/org/opengroup/osdu/entitlements/v2/azure/AzureAppProperties.java` the following method so that it starts returning such value:
-    - `getGraphDbEndpoint()`=`localhost`
-
-   Gremlin authentication uses Microsoft Entra tokens from the configured managed identity. For local emulator testing, use an Azure identity with access to the emulator-compatible Gremlin endpoint or run against a deployed test Cosmos DB account with Gremlin RBAC configured.
-
-5. Run Entitlements V2 service from Azure provider.
-
-6. Define environment variables for integration tests (e.g. maven options):
-the variable names are read by `testing/entitlements-v2-test-core` and `testing/entitlements-v2-test-azure`.
-
-New variables added:
-
-| name                             | value                 | description                                                                                     | sensitive? | source |
-|----------------------------------|-----------------------|-------------------------------------------------------------------------------------------------|------------|--------|
-| `AZURE_AD_VALID_OID_USER1`       | `xxxx-xxxx-xxxx-xxxx` | OID of a valid user                                                                             | yes        | -      |
-| `AZURE_AD_VALID_OID_USER2`       | `xxxx-xxxx-xxxx-xxxx` | OID of another user                                                                             | yes        | -      |
-| `AZURE_AD_NO_DATA_ACCESS_SP_OID` | `xxxx-xxxx-xxxx-xxxx` | Client Id of a Service Principal account, other than the one configured for running the service | Yes        | -      |
-| `AZURE_AD_GROUP_OID`             | `xxxx-xxxx-xxxx-xxxx` | OID of a valid Azure AD Group                                                                   | Yes        | -      |
-
-
-7. Run integration tests:
+To call the API by hand, `spi token` mints a bearer token:
 
 ```bash
-# build + install integration test core
-$ mvn compile -f testing/entitlements-v2-test-core
-
-# build + run Azure integration tests.
-$ mvn test -f testing/entitlements-v2-test-azure
+curl -H "Authorization: Bearer $(spi token)" -H "data-partition-id: <partition>" \
+  https://<gateway>/api/entitlements/v2/groups
 ```
 
+## Deploy
 
-## Debugging
+CI publishes the service image to GHCR. On a pull request, the Deploy and Test lane borrows an SPI Stack environment, runs the new image there, proves it with the acceptance suite, and restores the environment's own image, so a merge to `main` has already passed on real infrastructure. This repository does not own infrastructure; SPI Stack does.
 
-Jet Brains - the authors of Intellij IDEA, have written an [excellent guide](https://www.jetbrains.com/help/idea/debugging-your-first-java-application.html) on how to debug java programs.
+To try a build by hand on an environment you are connected to, pin it by digest and release the pin when done:
 
+```bash
+spi service pin entitlements --image ghcr.io/azure/osdu-spi-entitlements@sha256:<digest>
+spi service reset entitlements
+```
 
-## Deploying the Service
+## Service notes
 
-Environments and service deployments are provisioned by [OSDU SPI Stack](https://github.com/Azure/osdu-spi-stack). This repository builds the service image and runs the acceptance tests against a deployed environment; see [`entitlements-v2-acceptance-test`](../../entitlements-v2-acceptance-test/README.md).
+**Graph model.** Membership lives in a Cosmos DB Gremlin graph, partitioned by `dataPartitionId`, which every vertex carries.
+
+| Element | Label | Key properties |
+|---|---|---|
+| Group vertex | `GROUP` | `nodeId` (group email, e.g. `users@opendes.dataservices.energy`), `name`, `description`, `appId` |
+| User vertex | `USER` | `nodeId` (user or service principal ID) |
+| Parent edge | `parent` | Points from a member (user or group) to the group it belongs to |
+| Child edge | `child` | Points from a group to each member; carries `role` |
+
+`role` is `OWNER` or `MEMBER`. A user can be either; a group can only be a `MEMBER` of another group. Every membership is written as a matching parent and child edge pair.
 
 ## License
+
 Copyright © Microsoft Corporation
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-[http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+Licensed under the [Apache License 2.0](../../LICENSE).
