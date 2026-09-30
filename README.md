@@ -59,16 +59,16 @@ SPI Stack sets the service's environment from two places: the shared `osdu-confi
 
 **Specific to Entitlements**, from `services/entitlements.yaml`:
 
-| Variable | Value on SPI Stack | Purpose |
-|---|---|---|
-| `SERVER_SERVLET_CONTEXTPATH` | `/api/entitlements/v2/` | API base path |
-| `AZURE_ISTIOAUTH_ENABLED` | `true` | Trust the mesh's token validation |
-| `AZURE_PAAS_WORKLOADIDENTITY_ISENABLED` | `true` | Authenticate to Azure with workload identity |
-| `PARTITION_SERVICE_ENDPOINT` | `http://partition/api/partition/v1` | Per-partition resource lookup |
-| `SERVICE_DOMAIN_NAME` | `dataservices.energy` | Domain in group emails, as in `users@<partition>.dataservices.energy` |
-| `ROOT_DATA_GROUP_QUOTA` | `5000` | Most parents the `users.data.root` group may have |
-| `REDIS_TTL_SECONDS` | `1` | Lifetime of cached group lookups |
-| `REDIS_DATABASE` | `2` | Redis database index; overrides the `8` in `application.properties` |
+| Variable and value on SPI Stack | Purpose |
+|---|---|
+| `SERVER_SERVLET_CONTEXTPATH`<br>`/api/entitlements/v2/` | API base path |
+| `AZURE_ISTIOAUTH_ENABLED`<br>`true` | Trust the mesh's token validation |
+| `AZURE_PAAS_WORKLOADIDENTITY_ISENABLED`<br>`true` | Authenticate to Azure with workload identity |
+| `PARTITION_SERVICE_ENDPOINT`<br>`http://partition/api/partition/v1` | Per-partition resource lookup |
+| `SERVICE_DOMAIN_NAME`<br>`dataservices.energy` | Domain of group emails (`users@<partition>.<domain>`) |
+| `ROOT_DATA_GROUP_QUOTA`<br>`5000` | Most parents the `users.data.root` group may have |
+| `REDIS_TTL_SECONDS`<br>`1` | Lifetime of cached group lookups |
+| `REDIS_DATABASE`<br>`2` | Redis database index; overrides the `8` in `application.properties` |
 
 The service authenticates to Azure with workload identity, which injects `AZURE_CLIENT_ID` and a federated token; there are no client secrets. Gremlin connections use Entra tokens from that identity. Two endpoints come from central Key Vault: the graph from the secret `graph-db-endpoint` (database `osdu-graph`, collection `Entitlements`), and the Redis host from `redis-hostname`, over TLS on port `6380`. `REDIS_HOSTNAME` would override the Redis host, but SPI Stack leaves it unset.
 
