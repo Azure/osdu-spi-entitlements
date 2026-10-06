@@ -23,6 +23,7 @@ import org.opengroup.osdu.entitlements.v2.acceptance.util.TokenService;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
+import java.util.Locale;
 
 public class AzureTokenService implements TokenService {
     private static final String ACCESS_TOKEN =
@@ -47,7 +48,7 @@ public class AzureTokenService implements TokenService {
         if (TOKEN == null) {
             TOKEN = Strings.isNullOrEmpty(ACCESS_TOKEN)
                     ? Token.builder().value(retrieveToken()).userId(CLIENT_ID).build()
-                    : Token.builder().value(ACCESS_TOKEN).userId(callerId(ACCESS_TOKEN)).build();
+                    : Token.builder().value(ACCESS_TOKEN).userId(callerId(ACCESS_TOKEN).toLowerCase(Locale.ROOT)).build();
         }
         return TOKEN;
     }
