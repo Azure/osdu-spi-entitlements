@@ -20,7 +20,7 @@
         <junit.version>4.13.2</junit.version>
         <pact-jvm-provider-junit_2.12.version>3.5.5</pact-jvm-provider-junit_2.12.version>
         <jackson.version>2.21.6</jackson.version>
-        <spring-framework.version>6.2.18</spring-framework.version>
+        <spring-framework.version>6.2.19</spring-framework.version>
     </properties>
 
     <dependencyManagement>
