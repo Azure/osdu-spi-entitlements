@@ -38,7 +38,12 @@ public class CreateGroupsAzureTest extends CreateGroupTest {
                     .dataPartitionId(configurationService.getTenantId())
                     .token(tokenService.getToken().getValue())
                     .build();
-            httpClientService.send(requestData).close();
+try (org.apache.hc.client5.http.impl.classic.CloseableHttpResponse response =
+        httpClientService.send(requestData)) {
+    int statusCode = response.getCode();
+    org.junit.Assert.assertTrue("Expected cleanup DELETE to return 204 or 404, but got " + statusCode,
+            statusCode == 204 || statusCode == 404);
+}
         }
     }
 }
