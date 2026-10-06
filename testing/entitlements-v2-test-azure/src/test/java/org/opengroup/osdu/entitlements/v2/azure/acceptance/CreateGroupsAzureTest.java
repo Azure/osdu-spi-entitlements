@@ -15,6 +15,7 @@
 package org.opengroup.osdu.entitlements.v2.azure.acceptance;
 
 import org.opengroup.osdu.entitlements.v2.acceptance.CreateGroupTest;
+import org.opengroup.osdu.entitlements.v2.acceptance.model.request.RequestData;
 import org.opengroup.osdu.entitlements.v2.util.AzureConfigurationService;
 import org.opengroup.osdu.entitlements.v2.util.AzureTokenService;
 
@@ -22,5 +23,24 @@ public class CreateGroupsAzureTest extends CreateGroupTest {
 
     public CreateGroupsAzureTest() {
         super(new AzureConfigurationService(), new AzureTokenService());
+    }
+
+    // Upstream cleanup deletes only groupName-<ts>; also remove the data group, which would otherwise
+    // keep users.data.root as a member and exhaust app.quota.users.data.root.
+    @Override
+    protected void cleanup() throws Exception {
+        try {
+            super.cleanup();
+        } finally {
+            RequestData requestData = RequestData.builder()
+                    .method("DELETE")
+                    .relativePath("groups/" + configurationService.getIdOfGroup("data.groupName-" + currentTime))
+                    .dataPartitionId(configurationService.getTenantId())
+                    .token(tokenService.getToken().getValue())
+                    .build();
+try (org.apache.hc.client5.http.impl.classic.CloseableHttpResponse ignored =
+        httpClientService.send(requestData)) {
+}
+        }
     }
 }
