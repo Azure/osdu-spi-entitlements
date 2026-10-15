@@ -28,6 +28,7 @@ top_level:
   docs: keep
   pom.xml: keep
   publish.yml: strip
+  schemathesis-tests: keep
   entitlements-v2-acceptance-test: keep
   entitlements-v2-core: keep
   entitlements-v2-core-plus: strip
