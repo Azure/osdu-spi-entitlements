@@ -31,9 +31,9 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.ValidationException;
 import java.io.IOException;
-import java.nio.file.AccessDeniedException;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.security.access.AccessDeniedException;
 
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice
@@ -130,9 +130,9 @@ public class SpringExceptionMapper extends ResponseEntityExceptionHandler {
         return this.getErrorResponse(new AppException(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(), e.getMessage(), e));
     }
 
-    @ExceptionHandler({AccessDeniedException.class})
+    @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<Object> handleAccessDeniedException(AccessDeniedException ex, WebRequest request) {
-        return this.getErrorResponse(new AppException(HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.getReasonPhrase(), ex.getMessage(), ex));
+        return this.getErrorResponse(new AppException(HttpStatus.FORBIDDEN.value(), HttpStatus.FORBIDDEN.getReasonPhrase(), ex.getMessage(), ex));
     }
 
     @ExceptionHandler(Exception.class)
