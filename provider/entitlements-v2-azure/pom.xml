@@ -44,7 +44,6 @@
     <powermock-test.version>2.0.9</powermock-test.version>
     <!-- Plugin Versions -->
     <surefire-plugin.version>3.0.0</surefire-plugin.version>
-    <jacoco-plugin.version>0.8.12</jacoco-plugin.version>
   </properties>
 
   <dependencyManagement>
@@ -284,7 +283,6 @@
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
-        <version>${jacoco-plugin.version}</version>
         <configuration>
           <excludes>
             <exclude>org/opengroup/osdu/entitlements/v2/azure/EntitlementsV2Application.class</exclude>
