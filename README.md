@@ -1,6 +1,12 @@
 # Entitlement Service
 Official documentation can be found at [https://osdu.pages.opengroup.org/platform/security-and-compliance/entitlements/](https://osdu.pages.opengroup.org/platform/security-and-compliance/entitlements/)
 
+## Prerequisites
+
+- [Maven 3.9.16+](https://maven.apache.org/download.cgi)
+- [JDK 25](https://adoptium.net/)
+- [Lombok 1.18.40 or later](https://projectlombok.org/setup/maven)
+
 ## Running the Entitlements Service locally
 The Entitlements Service is a Maven multi-module project with each cloud implemention placed in its submodule.
 

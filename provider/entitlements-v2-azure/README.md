@@ -69,8 +69,9 @@ Parent edge:
 
 In order to run this service locally, you will need the following:
 
-- [Maven 3.8.0+](https://maven.apache.org/download.cgi)
-- [Java 17](https://adoptopenjdk.net/)
+- [Maven 3.9.16+](https://maven.apache.org/download.cgi)
+- [JDK 25](https://adoptium.net/)
+- [Lombok 1.18.40 or later](https://projectlombok.org/setup/maven)
 - Infrastructure dependencies, deployable through the relevant [infrastructure template](https://dev.azure.com/slb-des-ext-collaboration/open-data-ecosystem/_git/infrastructure-templates?path=%2Finfra&version=GBmaster&_a=contents)
 - While not a strict dependency, example commands in this document use [bash](https://www.gnu.org/software/bash/)
 
