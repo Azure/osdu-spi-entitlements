@@ -32,7 +32,9 @@
   </parent>
 
   <properties>
-    <core-lib-azure.version>3.0.3</core-lib-azure.version>
+    <core-lib-azure.version>4.0.0</core-lib-azure.version>
+    <!-- Root pom pins lettuce explicitly, which beats the core-lib-azure BOM; match the library here -->
+    <lettuce.version>7.9.0.RELEASE</lettuce.version>
     <slf4j.version>2.0.20</slf4j.version>
     <gremlin.version>3.8.2</gremlin.version>
     <java-jwt.version>4.5.2</java-jwt.version>
@@ -49,14 +51,6 @@
   <dependencyManagement>
     <dependencies>
       <!-- BOMs listed in the order of their dependency hierarchy or importance.  -->
-      <!-- netty-bom first so lettuce 7.x gets Netty 4.2+ (core-lib-azure BOM below pins 4.1.x) -->
-      <dependency>
-        <groupId>io.netty</groupId>
-        <artifactId>netty-bom</artifactId>
-        <version>${netty.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
       <dependency>
         <groupId>org.opengroup.osdu</groupId>
         <artifactId>core-lib-azure</artifactId>
@@ -248,6 +242,16 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+
+  <repositories>
+    <repository>
+      <id>spi-packages</id>
+      <url>https://osduspipackages.z1.web.core.windows.net/maven</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
 
   <!-- Build Configuration -->
   <build>
