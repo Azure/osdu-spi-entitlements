@@ -345,8 +345,6 @@
                     <exclude>org.opengroup.osdu.entitlements.v2:entitlements-v2-service</exclude>
                     <exclude>org.opengroup.osdu.entitlements.v2:entitlements-v2-core</exclude>
                     <exclude>org.opengroup.osdu.entitlements.v2:entitlements-v2-core-plus</exclude>
-                    <exclude>org.opengroup.osdu.entitlements.v2:gremlin-shaded-fix</exclude>
-                    <exclude>org.opengroup.osdu.entitlements.v2:entitlements-v2-azure</exclude>
                     <exclude>org.opengroup.osdu.entitlements.v2:entitlements-v2-ibm</exclude>
                   </excludes>
                 </requireReleaseDeps>
@@ -420,15 +418,6 @@
       <modules>
         <module>entitlements-v2-core</module>
         <module>entitlements-v2-core-plus</module>
-        <!-- Remove once TinkerPop releases gremlin-shaded with jackson >= 2.21.1 -->
-        <module>gremlin-shaded-fix</module>
-      </modules>
-    </profile>
-    <profile>
-      <id>azure</id>
-      <modules>
-        <module>gremlin-shaded-fix</module>
-        <module>provider/entitlements-v2-azure</module>
       </modules>
     </profile>
     <profile>

@@ -18,12 +18,6 @@ The Google Cloud implementation has been moved to [gc-osdu-services](https://com
 
 The AWS provider has been removed from this repository.
 
-### Integration tests
-Instructions for running the Azure integration tests in local environment can be found [here][Azure documentation]
-
-[Azure documentation]: testing/entitlements-v2-test-azure/README.md
-
-
 ### Open API 3.0 - Swagger
 - Swagger UI : https://host/context-path/swagger (will redirect to https://host/context-path/swagger-ui/index.html)
 - api-docs (JSON) : https://host/context-path/api-docs
@@ -34,7 +28,7 @@ All the Swagger and OpenAPI related common properties are managed here [swagger.
 #### Server Url(full path vs relative path) configuration
 - `api.server.fullUrl.enabled=true` It will generate full server url in the OpenAPI swagger
 - `api.server.fullUrl.enabled=false` It will generate only the contextPath only
-- default value is false (Currently only in Azure it is enabled)
+- default value is false
 [Reference]:(https://springdoc.org/faq.html#_how_is_server_url_generated)
 
 ### AWS
