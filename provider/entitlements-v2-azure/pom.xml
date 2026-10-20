@@ -273,6 +273,27 @@
         </executions>
       </plugin>
 
+      <!-- Enforcer Plugin: gremlin-shaded-fix is a fork-owned reactor module (version ${revision}),
+           so exempt it here rather than in the upstream-owned root pom, which upstream syncs overwrite. -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>enforce-config-hygiene</id>
+            <configuration>
+              <rules>
+                <requireReleaseDeps>
+                  <excludes combine.children="append">
+                    <exclude>org.opengroup.osdu.entitlements.v2:gremlin-shaded-fix</exclude>
+                  </excludes>
+                </requireReleaseDeps>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
       <!-- Surefire Plugin -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
