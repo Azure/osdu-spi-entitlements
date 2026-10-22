@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.2.2](https://github.com/Azure/osdu-spi-entitlements/compare/v1.2.1...v1.2.2) (2026-10-22)
+
+
+### 🐛 Bug Fixes
+
+* **azure:** Exempt gremlin-shaded-fix snapshot in azure enforcer config ([#94](https://github.com/Azure/osdu-spi-entitlements/issues/94)) ([aef7847](https://github.com/Azure/osdu-spi-entitlements/commit/aef7847ed8188e63f057b3b9821bb82f1e888277))
+* **azure:** Make group cache concurrency test thread-safe ([#96](https://github.com/Azure/osdu-spi-entitlements/issues/96)) ([0e94dc8](https://github.com/Azure/osdu-spi-entitlements/commit/0e94dc85c9996043d4754803f33dd6fb5813f489))
+* **azure:** Upgrade core-lib-azure to 4.0.0 ([#90](https://github.com/Azure/osdu-spi-entitlements/issues/90)) ([1fd9111](https://github.com/Azure/osdu-spi-entitlements/commit/1fd9111376786235911c1ca83b7b92aa61a6b128))
+
+
+### 🔧 Miscellaneous
+
+* Sync template updates ([#88](https://github.com/Azure/osdu-spi-entitlements/issues/88)) ([58b43ac](https://github.com/Azure/osdu-spi-entitlements/commit/58b43ac6a7583fa319d5ebe9c7f951351c6085dc))
+
+
+### 🔨 Build System
+
+* **azure:** Remove spi-packages maven repository from pom ([#98](https://github.com/Azure/osdu-spi-entitlements/issues/98)) ([3c04410](https://github.com/Azure/osdu-spi-entitlements/commit/3c04410b71d3d7cab73be6c0287d3eb8fb112278))
+
 ## [1.2.1](https://github.com/Azure/osdu-spi-entitlements/compare/v1.2.0...v1.2.1) (2026-10-16)
 
 
