@@ -19,8 +19,8 @@ import org.opengroup.osdu.entitlements.v2.model.listmember.ListMemberServiceDto;
 import org.opengroup.osdu.entitlements.v2.model.listmember.MemberDto;
 import org.opengroup.osdu.entitlements.v2.service.ListMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -49,13 +49,13 @@ public class ListMemberApiTest {
     private MockMvc mockMvc;
     @Autowired
     private ObjectMapper objectMapper;
-    @MockBean
+    @MockitoBean
     private ListMemberService service; //service used by api controller
-    @MockBean
+    @MockitoBean
     private JaxRsDpsLog logger;
-    @MockBean
+    @MockitoBean
     private ITenantFactory tenantFactory;
-    @MockBean
+    @MockitoBean
     private AuthorizationService authService;
 
     @Before

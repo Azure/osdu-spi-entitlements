@@ -30,9 +30,9 @@ import org.opengroup.osdu.entitlements.v2.jdbc.spi.jdbc.DbTestConfig;
 import org.opengroup.osdu.entitlements.v2.jdbc.spi.jdbc.repository.JdbcTemplateRunner;
 import org.opengroup.osdu.entitlements.v2.model.ChildrenReference;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.jdbc.test.autoconfigure.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.Sql.ExecutionPhase;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -76,9 +76,9 @@ class RetrieveGroupRepoJdbcLoadDirectChildrenDdTest {
 
   // loadDirectChildren does not touch these collaborators; mock them so the context matches the
   // proven RetrieveGroupRepoJdbcDdTest wiring while GroupRepository/MemberRepository stay real.
-  @MockBean
+  @MockitoBean
   private JdbcAppProperties jdbcAppProperties;
-  @MockBean
+  @MockitoBean
   private JdbcTemplateRunner jdbcTemplateRunner;
 
   @Autowired

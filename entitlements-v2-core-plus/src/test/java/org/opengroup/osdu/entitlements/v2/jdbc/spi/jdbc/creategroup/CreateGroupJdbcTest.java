@@ -44,7 +44,7 @@ import org.opengroup.osdu.entitlements.v2.service.GroupCacheService;
 import org.opengroup.osdu.entitlements.v2.spi.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @SpringBootTest(classes = SpiJdbcTestConfig.class)
@@ -54,13 +54,13 @@ public class CreateGroupJdbcTest {
     @Autowired
     private CreateGroupRepoJdbc sut;
 
-    @MockBean
+    @MockitoBean
     private MemberRepository memberRepository;
-    @MockBean
+    @MockitoBean
     private GroupRepository groupRepository;
-    @MockBean
+    @MockitoBean
     private JdbcTemplateRunner jdbcTemplateRunner;
-    @MockBean
+    @MockitoBean
     private GroupCacheService groupCacheService;
 
     @Test

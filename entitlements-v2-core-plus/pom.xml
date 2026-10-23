@@ -83,7 +83,7 @@
     <dependency>
       <groupId>org.opengroup.osdu</groupId>
       <artifactId>os-oqm-core</artifactId>
-      <version>0.26.0</version>
+      <version>0.28.3</version>
     </dependency>
     <!--   JDBC   -->
     <dependency>
@@ -115,7 +115,7 @@
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-aop</artifactId>
+      <artifactId>spring-boot-starter-aspectj</artifactId>
     </dependency>
     <!-- Test -->
     <dependency>
@@ -127,6 +127,11 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jdbc-test</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
