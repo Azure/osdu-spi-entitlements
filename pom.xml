@@ -55,7 +55,7 @@
     <tomcat.version>10.1.60</tomcat.version>
     <!-- jackson-core/databind HIGH CVEs fixed in 2.21.7+.
          Import jackson-bom ahead of spring-boot-dependencies so the whole jackson.core line moves. -->
-    <jackson-bom.version>2.21.7</jackson-bom.version>
+    <jackson-bom.version>2.21.8</jackson-bom.version>
     <!-- pgjdbc High CVE-2026-42198 on 42.7.10; fixed in 42.7.11+. -->
     <postgresql.version>42.7.13</postgresql.version>
     <!-- os-core-common declares lettuce-core as provided; CVE-2025-58057 requires >= 7.5.2.RELEASE -->
