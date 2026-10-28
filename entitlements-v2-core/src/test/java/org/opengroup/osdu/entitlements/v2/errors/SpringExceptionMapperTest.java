@@ -36,6 +36,6 @@ public class SpringExceptionMapperTest {
 
         ResponseEntity response = springExceptionMapper.handleIOException(ioException);
 
-        Assert.assertEquals(HttpStatus.SC_SERVICE_UNAVAILABLE, response.getStatusCodeValue());
+        Assert.assertEquals(HttpStatus.SC_SERVICE_UNAVAILABLE, response.getStatusCode().value());
     }
 }
