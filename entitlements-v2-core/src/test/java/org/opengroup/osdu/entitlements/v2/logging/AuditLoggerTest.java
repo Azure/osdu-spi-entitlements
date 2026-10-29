@@ -71,44 +71,6 @@ public class AuditLoggerTest {
         when(httpServletRequest.getHeader("User-Agent")).thenReturn("Test-Agent");
     }
 
-    // ==================== Redis Backup Tests ====================
-
-    @Test
-    public void shouldLogRedisInstanceBackupSuccess() {
-        auditLogger.redisInstanceBackupSuccess();
-        verify(log).audit(auditEvents.getRedisBackupSuccessEvent(AuditOperation.REDIS_BACKUP.getRequiredGroups()));
-    }
-
-    @Test
-    public void shouldLogRedisInstanceBackupFailure() {
-        auditLogger.redisInstanceBackupFailure();
-        verify(log).audit(auditEvents.getRedisBackupFailureEvent(AuditOperation.REDIS_BACKUP.getRequiredGroups()));
-    }
-
-    @Test
-    public void shouldLogRedisInstanceBackupVersionsSuccess() {
-        auditLogger.redisInstanceBackupVersionsSuccess();
-        verify(log).audit(auditEvents.getRedisBackupVersionSuccessEvent(AuditOperation.REDIS_BACKUP_VERSIONS.getRequiredGroups()));
-    }
-
-    @Test
-    public void shouldLogRedisInstanceBackupVersionsFailure() {
-        auditLogger.redisInstanceBackupVersionsFailure();
-        verify(log).audit(auditEvents.getRedisBackupVersionFailureEvent(AuditOperation.REDIS_BACKUP_VERSIONS.getRequiredGroups()));
-    }
-
-    @Test
-    public void shouldLogRedisInstanceRestoreSuccess() {
-        auditLogger.redisInstanceRestoreSuccess("version");
-        verify(log).audit(auditEvents.getRedisRestoreSuccessEvent("version", AuditOperation.REDIS_RESTORE.getRequiredGroups()));
-    }
-
-    @Test
-    public void shouldLogRedisInstanceRestoreFailure() {
-        auditLogger.redisInstanceRestoreFailure("version");
-        verify(log).audit(auditEvents.getRedisRestoreFailureEvent("version", AuditOperation.REDIS_RESTORE.getRequiredGroups()));
-    }
-
     // ==================== Group Operation Tests ====================
 
     @Test

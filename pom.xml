@@ -345,7 +345,6 @@
                     <exclude>org.opengroup.osdu.entitlements.v2:entitlements-v2-service</exclude>
                     <exclude>org.opengroup.osdu.entitlements.v2:entitlements-v2-core</exclude>
                     <exclude>org.opengroup.osdu.entitlements.v2:entitlements-v2-core-plus</exclude>
-                    <exclude>org.opengroup.osdu.entitlements.v2:entitlements-v2-ibm</exclude>
                   </excludes>
                 </requireReleaseDeps>
               </rules>
@@ -418,12 +417,6 @@
       <modules>
         <module>entitlements-v2-core</module>
         <module>entitlements-v2-core-plus</module>
-      </modules>
-    </profile>
-    <profile>
-      <id>ibm</id>
-      <modules>
-        <module>provider/entitlements-v2-ibm</module>
       </modules>
     </profile>
   </profiles>
