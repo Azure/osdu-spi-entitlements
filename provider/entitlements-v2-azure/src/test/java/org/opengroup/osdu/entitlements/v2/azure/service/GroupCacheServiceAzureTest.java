@@ -18,10 +18,13 @@ import org.awaitility.Duration;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoRule;
 import org.mockito.stubbing.Answer;
 import org.opengroup.osdu.azure.cache.RedisAzureCache;
 import org.opengroup.osdu.core.common.logging.JaxRsDpsLog;
@@ -39,7 +42,7 @@ import org.redisson.config.Config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.test.context.TestPropertySource;
@@ -81,6 +84,8 @@ import static org.mockito.Mockito.when;
         "cache.flush.ttl.jitter=1000"})
 @RunWith(SpringRunner.class)
 public class GroupCacheServiceAzureTest {
+    @Rule
+    public MockitoRule mockitoRule = MockitoJUnit.rule();
     @TestConfiguration
     static class TestConfig {
         @Bean
@@ -101,15 +106,15 @@ public class GroupCacheServiceAzureTest {
     private EntityNode requester1;
     private EntityNode requester2;
 
-    @MockBean
+    @MockitoBean
     private RetrieveGroupRepo retrieveGroupRepo;
-    @MockBean
+    @MockitoBean
     private HitsNMissesMetricService metricService;
-    @MockBean
+    @MockitoBean
     private RedisAzureCache<ParentReferences> redisGroupCache;
-    @MockBean
+    @MockitoBean
     private JaxRsDpsLog log;
-    @MockBean
+    @MockitoBean
     private CacheConfig cacheConfig;
     @Mock
     private ParentTreeDto parentTreeDto;

@@ -51,6 +51,14 @@
   <dependencyManagement>
     <dependencies>
       <!-- BOMs listed in the order of their dependency hierarchy or importance.  -->
+      <!-- Boot BOM first: this module's imports resolve before the parent's, and core-lib-azure's BOM carries Boot 3. -->
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>${spring-boot.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
       <dependency>
         <groupId>org.opengroup.osdu</groupId>
         <artifactId>core-lib-azure</artifactId>
@@ -84,6 +92,17 @@
       <groupId>org.opengroup.osdu</groupId>
       <artifactId>core-lib-azure</artifactId>
       <version>${core-lib-azure.version}</version>
+      <exclusions>
+        <!-- Boot 3 starter; Boot 4 replaces it with spring-boot-starter-aspectj -->
+        <exclusion>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-aop</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-aspectj</artifactId>
     </dependency>
     <!--
         os-core-common 7.0.0 declares lettuce-core as provided. Spring Boot BOM
@@ -181,6 +200,11 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-webmvc-test</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>

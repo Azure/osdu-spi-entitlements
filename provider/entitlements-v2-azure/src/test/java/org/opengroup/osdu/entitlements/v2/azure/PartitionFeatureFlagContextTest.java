@@ -20,7 +20,7 @@ import org.opengroup.osdu.core.common.feature.IFeatureFlag;
 import org.opengroup.osdu.entitlements.v2.azure.config.CacheConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.junit.Assert.assertEquals;
@@ -33,7 +33,7 @@ public class PartitionFeatureFlagContextTest {
     @Autowired
     private IFeatureFlag featureFlag;
 
-    @MockBean
+    @MockitoBean
     private CacheConfig cacheConfig;
 
     @Test
