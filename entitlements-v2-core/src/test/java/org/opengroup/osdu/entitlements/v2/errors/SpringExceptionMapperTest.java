@@ -50,7 +50,7 @@ public class SpringExceptionMapperTest {
 
         ResponseEntity response = springExceptionMapper.handleIOException(ioException);
 
-        Assert.assertEquals(HttpStatus.SC_SERVICE_UNAVAILABLE, response.getStatusCodeValue());
+        Assert.assertEquals(HttpStatus.SC_SERVICE_UNAVAILABLE, response.getStatusCode().value());
     }
 
     @Test
@@ -62,7 +62,7 @@ public class SpringExceptionMapperTest {
         ResponseEntity<Object> response = springExceptionMapper.handleHttpMessageNotReadable(
                 exception, new HttpHeaders(), org.springframework.http.HttpStatus.BAD_REQUEST, mock(WebRequest.class));
 
-        Assert.assertEquals(HttpStatus.SC_BAD_REQUEST, response.getStatusCodeValue());
+        Assert.assertEquals(HttpStatus.SC_BAD_REQUEST, response.getStatusCode().value());
         Assert.assertTrue(response.getBody() instanceof AppError);
     }
 
@@ -73,7 +73,7 @@ public class SpringExceptionMapperTest {
         ResponseEntity<Object> response = springExceptionMapper.handleTypeMismatch(
                 exception, new HttpHeaders(), org.springframework.http.HttpStatus.BAD_REQUEST, mock(WebRequest.class));
 
-        Assert.assertEquals(HttpStatus.SC_BAD_REQUEST, response.getStatusCodeValue());
+        Assert.assertEquals(HttpStatus.SC_BAD_REQUEST, response.getStatusCode().value());
         Assert.assertTrue(response.getBody() instanceof AppError);
     }
 
@@ -86,7 +86,7 @@ public class SpringExceptionMapperTest {
                 exception, null, new HttpHeaders(),
                 org.springframework.http.HttpStatus.METHOD_NOT_ALLOWED, mock(WebRequest.class));
 
-        Assert.assertEquals(HttpStatus.SC_METHOD_NOT_ALLOWED, response.getStatusCodeValue());
+        Assert.assertEquals(HttpStatus.SC_METHOD_NOT_ALLOWED, response.getStatusCode().value());
         Assert.assertTrue(response.getBody() instanceof AppError);
         AppError error = (AppError) response.getBody();
         Assert.assertEquals(HttpStatus.SC_METHOD_NOT_ALLOWED, error.getCode());
@@ -102,7 +102,7 @@ public class SpringExceptionMapperTest {
                 exception, null, new HttpHeaders(),
                 org.springframework.http.HttpStatus.UNSUPPORTED_MEDIA_TYPE, mock(WebRequest.class));
 
-        Assert.assertEquals(HttpStatus.SC_UNSUPPORTED_MEDIA_TYPE, response.getStatusCodeValue());
+        Assert.assertEquals(HttpStatus.SC_UNSUPPORTED_MEDIA_TYPE, response.getStatusCode().value());
         Assert.assertTrue(response.getBody() instanceof AppError);
         AppError error = (AppError) response.getBody();
         Assert.assertEquals(HttpStatus.SC_UNSUPPORTED_MEDIA_TYPE, error.getCode());

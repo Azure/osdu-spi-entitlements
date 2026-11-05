@@ -1,7 +1,7 @@
 package org.opengroup.osdu.entitlements.v2.errors;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.exc.UnrecognizedPropertyException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.opengroup.osdu.core.common.logging.JaxRsDpsLog;
@@ -125,7 +125,7 @@ public class SpringExceptionMapper extends ResponseEntityExceptionHandler {
                 new AppException(statusCode.value(), resolved.getReasonPhrase(), message, ex));
     }
 
-    @ExceptionHandler({ValidationException.class, JsonProcessingException.class, UnrecognizedPropertyException.class})
+    @ExceptionHandler({ValidationException.class, JacksonException.class, UnrecognizedPropertyException.class})
     protected ResponseEntity<Object> handleValidationException(Exception e) {
         return this.getErrorResponse(new AppException(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase(), e.getMessage(), e));
     }
