@@ -38,7 +38,7 @@ import org.opengroup.osdu.entitlements.v2.jdbc.config.IDTokenValidatorFactory;
 import org.opengroup.osdu.entitlements.v2.jdbc.config.properties.EntConfigProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -71,13 +71,13 @@ public class InternalAuthTest {
   @Mock private Object handler;
   @Mock private HttpServletRequest request;
   @Mock private HttpServletResponse response;
-  @MockBean private IRedisCache<String, UserInfo> cache;
-  @MockBean private IDTokenValidatorFactory tokenValidatorFactory;
+  @MockitoBean private IRedisCache<String, UserInfo> cache;
+  @MockitoBean private IDTokenValidatorFactory tokenValidatorFactory;
   @Autowired private EntConfigProperties entConfigProperties;
   @Autowired public RequestHeaderInterceptor interceptor;
   @Autowired private ApplicationContext applicationContext;
 
-  @MockBean private DatabaseCheck databaseCheck;
+  @MockitoBean private DatabaseCheck databaseCheck;
 
   private String correctToken;
 
