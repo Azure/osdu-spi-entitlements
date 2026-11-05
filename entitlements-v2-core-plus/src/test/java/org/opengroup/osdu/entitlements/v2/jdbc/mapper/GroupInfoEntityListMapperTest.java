@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import org.junit.jupiter.api.BeforeEach;
@@ -88,7 +88,7 @@ class GroupInfoEntityListMapperTest {
     @Test
     void mapRow_malformedJson_throwsAppExceptionWithInternalServerErrorStatus() throws SQLException {
         ResultSet rs = mock(ResultSet.class);
-        // Non-parseable JSON causes JsonProcessingException, which the mapper wraps as AppException.
+        // Non-parseable JSON causes JacksonException, which the mapper wraps as AppException.
         when(rs.getString("groupInfoEntities")).thenReturn("this is not json");
 
         AppException ex = assertThrows(AppException.class, () -> sut.mapRow(rs, 0));
