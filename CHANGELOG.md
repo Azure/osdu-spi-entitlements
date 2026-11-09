@@ -1,5 +1,63 @@
 # Changelog
 
+## [1.2.2](https://github.com/Azure/osdu-spi-entitlements/compare/v1.2.1...v1.2.2) (2026-11-09)
+
+
+### 🐛 Bug Fixes
+
+* [Venus] Remove IBM provider code and CI/CD from Entitlements ([#428](https://github.com/Azure/osdu-spi-entitlements/issues/428)) ([ac96a16](https://github.com/Azure/osdu-spi-entitlements/commit/ac96a169d9b585f7e64d6143249c484c15cacab2))
+* [Venus] Verify the deployed revision in Entitlements acceptance tests ([#423](https://github.com/Azure/osdu-spi-entitlements/issues/423)) ([c06fba2](https://github.com/Azure/osdu-spi-entitlements/commit/c06fba2f67b85306f94a1e3275802c8fe0e8ef1d))
+* **azure:** Exclude AzureHealthEndpointWebExtension from scan ([6229afb](https://github.com/Azure/osdu-spi-entitlements/commit/6229afbe51438c702b0bc29d5a6573f4325ac231))
+* **azure:** Exempt gremlin-shaded-fix snapshot in azure enforcer config ([#94](https://github.com/Azure/osdu-spi-entitlements/issues/94)) ([aef7847](https://github.com/Azure/osdu-spi-entitlements/commit/aef7847ed8188e63f057b3b9821bb82f1e888277))
+* **azure:** Make group cache concurrency test thread-safe ([#96](https://github.com/Azure/osdu-spi-entitlements/issues/96)) ([0e94dc8](https://github.com/Azure/osdu-spi-entitlements/commit/0e94dc85c9996043d4754803f33dd6fb5813f489))
+* **azure:** Migrate javax.annotation imports to jakarta ([09fc422](https://github.com/Azure/osdu-spi-entitlements/commit/09fc4226718993dd16dbe3764f2448fd714c3dbc))
+* **azure:** Upgrade core-lib-azure to 4.0.0 ([#90](https://github.com/Azure/osdu-spi-entitlements/issues/90)) ([1fd9111](https://github.com/Azure/osdu-spi-entitlements/commit/1fd9111376786235911c1ca83b7b92aa61a6b128))
+* Sync upstream changes from a4c8573c ([c021029](https://github.com/Azure/osdu-spi-entitlements/commit/c0210290f59fff87f2fccde6a7bbde93502022ce))
+* Sync upstream changes from v9.99.0-ibm.1 ([1a6288b](https://github.com/Azure/osdu-spi-entitlements/commit/1a6288ba4f03caf94b395fe6668998c49201ec2f))
+
+
+### 🔧 Miscellaneous
+
+* Declare component governance inputs ([429a86d](https://github.com/Azure/osdu-spi-entitlements/commit/429a86d2c0009d065b26d3a758157586bc0da926))
+* Declare component governance inputs ([078539b](https://github.com/Azure/osdu-spi-entitlements/commit/078539bdfce42eb94de2b0a2ccdd4a49f3d0538e))
+* **deps:** Bump jackson.version from 2.21.7 to 2.21.8 in /testing/entitlements-v2-test-azure ([a7b7c0c](https://github.com/Azure/osdu-spi-entitlements/commit/a7b7c0c14811e7ca26d0bba44e225d07adeff821))
+* **deps:** Bump jackson.version in /testing/entitlements-v2-test-azure ([28ce54c](https://github.com/Azure/osdu-spi-entitlements/commit/28ce54cc5a48a650a681ee81aa96c62974a5767e))
+* Generate filtered upstream tree ([6db691a](https://github.com/Azure/osdu-spi-entitlements/commit/6db691a5930da0295d0e8a374ec444e4429224f8))
+* Generate filtered upstream tree ([c67afd3](https://github.com/Azure/osdu-spi-entitlements/commit/c67afd3e5cdb3b9281a17431b372fe5f0bf9b316))
+* **notice:** Refresh NOTICE from Component Governance ([180cc76](https://github.com/Azure/osdu-spi-entitlements/commit/180cc76e10027238470880d0cbc63bd81ab84bde))
+* **notice:** Refresh NOTICE from Component Governance ([1fdfdf6](https://github.com/Azure/osdu-spi-entitlements/commit/1fdfdf631fa93d295df342c0fd440f775c06c40c))
+* Remove Azure provider and Azure CI/CD ([13ebc3f](https://github.com/Azure/osdu-spi-entitlements/commit/13ebc3f01bdec1de894ed4a1e6920ed386a3245e))
+* Remove Azure provider and Azure CI/CD ([890f427](https://github.com/Azure/osdu-spi-entitlements/commit/890f427281f9759cb80c25f755197c061f5113af))
+* Sync template updates ([dd16c4c](https://github.com/Azure/osdu-spi-entitlements/commit/dd16c4c2723a5a6e65819b3e8b5294d923da8853))
+* Sync template updates ([e5d3d94](https://github.com/Azure/osdu-spi-entitlements/commit/e5d3d94996b24ec343e775cf7fe85a29799c1420))
+* Sync template updates ([032a5b2](https://github.com/Azure/osdu-spi-entitlements/commit/032a5b2d69156348a487926252ac91a7abcdd451))
+* Sync template updates ([006f10b](https://github.com/Azure/osdu-spi-entitlements/commit/006f10b1f5137df4d376f87879b314922a7873a9))
+* Sync template updates ([586ddb0](https://github.com/Azure/osdu-spi-entitlements/commit/586ddb0990778da099f7b8015b7823211cd4cce1))
+* Sync template updates ([f2c35c8](https://github.com/Azure/osdu-spi-entitlements/commit/f2c35c8b0af849b7782259e0be6930d85b67324e))
+* Sync template updates ([16118e8](https://github.com/Azure/osdu-spi-entitlements/commit/16118e824964bddb040ce1560aba1526f119c30e))
+* Sync template updates ([f233f8d](https://github.com/Azure/osdu-spi-entitlements/commit/f233f8d8e158023c77a4819ef3abeb7a50d7b5bf))
+* Sync template updates ([89dade5](https://github.com/Azure/osdu-spi-entitlements/commit/89dade5fd2709d153a87b90a1b65328fdd169ea6))
+* Sync template updates ([#88](https://github.com/Azure/osdu-spi-entitlements/issues/88)) ([58b43ac](https://github.com/Azure/osdu-spi-entitlements/commit/58b43ac6a7583fa319d5ebe9c7f951351c6085dc))
+* **template-sync:** Sync template updates (updated 2026-10-27) ([f4a2742](https://github.com/Azure/osdu-spi-entitlements/commit/f4a27429719d8b93caa5e038f04a89cb8baa0354))
+* **template-sync:** Sync template updates (updated 2026-11-02) ([074402f](https://github.com/Azure/osdu-spi-entitlements/commit/074402f66afeedf192a11595a15a3fd462723dd5))
+* **template-sync:** Sync template updates (updated 2026-11-04) ([95887d9](https://github.com/Azure/osdu-spi-entitlements/commit/95887d9c3e282948cc06de750ae049b64c7b3983))
+* **template-sync:** Sync template updates (updated 2026-11-05) ([dc7a1b7](https://github.com/Azure/osdu-spi-entitlements/commit/dc7a1b73e3a5c11db15a3cdc35ee18ce4986663a))
+* **template-sync:** Sync template updates 2026-10-27 ([49f4327](https://github.com/Azure/osdu-spi-entitlements/commit/49f4327ae5b25827f5d5e47e5e0b900d68b0ac31))
+* **template-sync:** Sync template updates 2026-10-30 ([ca75bed](https://github.com/Azure/osdu-spi-entitlements/commit/ca75bedf7dac4c50c4f79c3dd387c44767e3e88e))
+* **template-sync:** Sync template updates 2026-11-02 ([5f1cbd1](https://github.com/Azure/osdu-spi-entitlements/commit/5f1cbd1da3921d5c3d2be5fe67482a6490f0c5d9))
+* **template-sync:** Sync template updates 2026-11-03 ([c33ba23](https://github.com/Azure/osdu-spi-entitlements/commit/c33ba2301453e4f99f2d870ff79d24d526ad4953))
+* **template-sync:** Sync template updates 2026-11-06 ([9b32365](https://github.com/Azure/osdu-spi-entitlements/commit/9b32365de0fe147a4163afcce5e979aa926dab76))
+* Update NOTICE from fossa-check-notice ([9575b9c](https://github.com/Azure/osdu-spi-entitlements/commit/9575b9c50e5a2b217600f3a23227ae383a9883a1))
+
+
+### 🔨 Build System
+
+* **azure:** Migrate entitlements-v2-azure to Spring Boot 4 ([b93c7b3](https://github.com/Azure/osdu-spi-entitlements/commit/b93c7b34c759b23fadd1847f0b2a73f8fbfbd765))
+* **azure:** Pin netty and jackson BOMs in entitlements-v2 ([d570389](https://github.com/Azure/osdu-spi-entitlements/commit/d570389bb291cd82a475cda57c4bbe7101ab0303))
+* **azure:** Remove spi-packages maven repository from pom ([#98](https://github.com/Azure/osdu-spi-entitlements/issues/98)) ([3c04410](https://github.com/Azure/osdu-spi-entitlements/commit/3c04410b71d3d7cab73be6c0287d3eb8fb112278))
+* **azure:** Upgrade core-lib-azure to 5.0.0 and import its BOM ([8289f07](https://github.com/Azure/osdu-spi-entitlements/commit/8289f07ba9ab006560c13e795e18e8d2d87dcd4e))
+* **azure:** Upgrade core-lib-azure to 5.0.0 and import its BOM ([69605f0](https://github.com/Azure/osdu-spi-entitlements/commit/69605f01d752023a3c2dd4b1b86b66b0f5895cbd))
+
 ## [1.2.1](https://github.com/Azure/osdu-spi-entitlements/compare/v1.2.0...v1.2.1) (2026-10-16)
 
 
