@@ -46,7 +46,7 @@
     <os-core-common.version>10.0.0</os-core-common.version>
 
     <!-- Project Versions-->
-    <json-smart.version>2.6.0</json-smart.version>
+    <json-smart.version>2.6.1</json-smart.version>
     <log4j.version>2.25.3</log4j.version>
     <openapi.version>3.0.3</openapi.version>
     <swagger-core.version>2.2.47</swagger-core.version>
