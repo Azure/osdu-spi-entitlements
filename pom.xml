@@ -60,7 +60,7 @@
     <!-- Guava CVE-2026-102554 fixed in 33.7.2-jre -->
     <guava.version>33.7.2-jre</guava.version>
     <!-- Logback CVE-2026-104721 (SiftingAppender) fixed in 1.6.5; Spring Boot 4.0.9 still manages 1.5.x -->
-    <logback.version>1.6.5</logback.version>
+    <logback.version>1.6.6</logback.version>
     <!-- pgjdbc High CVE-2026-42198 on 42.7.10; fixed in 42.7.11+. -->
     <postgresql.version>42.7.13</postgresql.version>
     <!-- os-core-common declares lettuce-core as provided; CVE-2025-58057 requires >= 7.5.2.RELEASE -->
