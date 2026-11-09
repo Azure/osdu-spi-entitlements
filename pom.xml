@@ -67,7 +67,7 @@
     <lettuce.version>7.5.2.RELEASE</lettuce.version>
     <!-- lettuce-core 7.x requires Netty 4.2+.
          4.2.18.Final remediates CVE-2026-89044 and other findings still present on 4.2.17. -->
-    <netty.version>4.2.19.Final</netty.version>
+    <netty.version>4.2.20.Final</netty.version>
     <!-- Nested spring-boot-dependencies → mockito-bom ignores consumer mockito.version; pin explicitly.
          Mockito 5.20+ pulls ByteBuddy with Java 25 support. -->
     <mockito.version>5.23.0</mockito.version>
