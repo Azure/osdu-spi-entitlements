@@ -52,7 +52,7 @@
     <swagger-core.version>2.2.47</swagger-core.version>
     <!-- Override Spring Boot 4.0.9's Tomcat with the latest patched 11.0.x.
          Explicit dependencyManagement is required (BOM import, no spring-boot-starter-parent). -->
-    <tomcat.version>11.0.27</tomcat.version>
+    <tomcat.version>11.0.29</tomcat.version>
     <!-- Jackson 3 (Spring Boot 4 default, used by the application) and patched Jackson 2 (still pulled in
          by swagger-core and core-plus-common-lib), pinned via jackson-bom import precedence. -->
     <jackson2.version>2.21.8</jackson2.version>
