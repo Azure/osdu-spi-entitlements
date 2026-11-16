@@ -58,7 +58,7 @@ public class ListMemberApi {
     public ResponseEntity<ListMemberResponseDto> listGroupMembers(@Parameter(description = "Group Email")
                                                                   @PathVariable("group_email") String groupEmail,
                                                                   @Parameter(description = "Role of the member", example = "MEMBER") @RequestParam(value = "role", required = false) Role role,
-                                                                  @Parameter(description = "Include Type") @RequestParam(value = "includeType", required = false) boolean includeType) {
+                                                                  @Parameter(description = "Include Type") @RequestParam(value = "includeType", required = false, defaultValue = "false") Boolean includeType) {
 
         String partitionId = requestInfo.getHeaders().getPartitionId();
         String partitionDomain = requestInfoUtilService.getDomain(partitionId);
