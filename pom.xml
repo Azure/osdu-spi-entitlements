@@ -43,7 +43,7 @@
     <spring-framework.version>7.0.10</spring-framework.version>
 
     <!-- OSDU Versions-->
-    <os-core-common.version>10.0.0</os-core-common.version>
+    <os-core-common.version>10.0.1</os-core-common.version>
 
     <!-- Project Versions-->
     <json-smart.version>2.6.0</json-smart.version>

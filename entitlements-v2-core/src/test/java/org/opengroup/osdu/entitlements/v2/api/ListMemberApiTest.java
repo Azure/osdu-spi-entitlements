@@ -112,6 +112,19 @@ public class ListMemberApiTest {
     }
 
     @Test
+    public void shouldUseDefaultIncludeTypeWhenQueryParameterIsOmitted() throws Exception {
+        String group = "service.viewers.users@common.contoso.com";
+        ListMemberRequestArgs args = ListMemberRequestArgs.builder().build();
+
+        String withoutIncludeType = performListMemberRequest(group, args, false).andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
+        String withDefaultIncludeType = performListMemberRequest(group, args).andExpect(status().isOk())
+                .andReturn().getResponse().getContentAsString();
+
+        assertThat(withoutIncludeType).isEqualToIgnoringWhitespace(withDefaultIncludeType);
+    }
+
+    @Test
     public void shouldCallServiceWithExpectedInputs() throws Exception {
         String group = "service.VIEWERS.users@common.contoso.com";
         ListMemberRequestArgs args = ListMemberRequestArgs.builder().build();
@@ -212,8 +225,14 @@ public class ListMemberApiTest {
     }
 
     private ResultActions performListMemberRequest(String groupEmail, ListMemberRequestArgs args) throws Exception {
+        return performListMemberRequest(groupEmail, args, true);
+    }
+
+    private ResultActions performListMemberRequest(String groupEmail, ListMemberRequestArgs args, boolean includeTypeQueryParameter) throws Exception {
         MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<>();
-        queryParams.add("includeType", args.getIncludeType().toString());
+        if (includeTypeQueryParameter) {
+            queryParams.add("includeType", args.getIncludeType().toString());
+        }
         if (args.getRole() != null) {
             queryParams.add("role", args.getRole().toString());
         }
