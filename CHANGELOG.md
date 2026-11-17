@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.2.3](https://github.com/Azure/osdu-spi-entitlements/compare/v1.2.2...v1.2.3) (2026-11-17)
+
+
+### 🐛 Bug Fixes
+
+* Sync upstream changes from 10ad0627 ([e9b3899](https://github.com/Azure/osdu-spi-entitlements/commit/e9b3899d7eeefd35901c264dfdf0ed67cb714b7a))
+
+
+### 🔧 Miscellaneous
+
+* **deps:** Bump io.netty:netty-all ([39821c4](https://github.com/Azure/osdu-spi-entitlements/commit/39821c4b05f85b459e431dc9aa385429b138fc3f))
+* **deps:** Bump io.netty:netty-all from 4.1.139.Final to 4.1.140.Final in /testing/entitlements-v2-test-azure ([14fb080](https://github.com/Azure/osdu-spi-entitlements/commit/14fb080ca54d1ff10309fcf40180932269df453b))
+* Generate filtered upstream tree ([cf84faa](https://github.com/Azure/osdu-spi-entitlements/commit/cf84faa54300a0818c25f564941edccd810a070d))
+* **notice:** Refresh NOTICE from Component Governance ([3039056](https://github.com/Azure/osdu-spi-entitlements/commit/30390560992ee488c8e048e9c75b3ee98b678416))
+* **notice:** Refresh NOTICE from Component Governance ([0285a30](https://github.com/Azure/osdu-spi-entitlements/commit/0285a30e2b53857f9c0fd981e22d8bf6f43fe2d7))
+* Sync template updates ([ecd99ca](https://github.com/Azure/osdu-spi-entitlements/commit/ecd99ca0107f00836881aa3de5e06a5c565b8f7a))
+* **template-sync:** Sync template updates 2026-11-16 ([190d70b](https://github.com/Azure/osdu-spi-entitlements/commit/190d70b506b935eab84639fe0495abb0717d84aa))
+
 ## [1.2.2](https://github.com/Azure/osdu-spi-entitlements/compare/v1.2.1...v1.2.2) (2026-11-09)
 
 
