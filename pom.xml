@@ -49,7 +49,7 @@
     <json-smart.version>2.6.0</json-smart.version>
     <log4j.version>2.25.3</log4j.version>
     <openapi.version>3.0.3</openapi.version>
-    <swagger-core.version>2.2.47</swagger-core.version>
+    <swagger-core.version>2.2.56</swagger-core.version>
     <!-- Override Spring Boot 4.0.9's Tomcat with the latest patched 11.0.x.
          Explicit dependencyManagement is required (BOM import, no spring-boot-starter-parent). -->
     <tomcat.version>11.0.27</tomcat.version>
